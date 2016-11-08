@@ -1,6 +1,6 @@
 # -*- coding: latin-1 -*-
 
-### imports
+### imports ###############################################################################################################################
 
 import numpy
 import random
@@ -8,7 +8,7 @@ import random
 import os
 from subprocess import call
 
-### helpers
+### helpers ###############################################################################################################################
 
 def flatten(k):
     return [i for j in k for i in j]
@@ -25,160 +25,173 @@ def string_form(word, rep, cap):
         k = k+("".join([rep.tex[i] for i in word[1:]]))
     return k
 
-### classes (though lists pretty much would have been fine)
+### classes ###############################################################################################################################
 
 class Representation:
     def __init__(self):
-        self.num = 33
-        self.uni = ['a',u'ä',u'á','e',u'ë',u'é','o',u'ö',u'ó','u',u'ü',u'ú',
-                'p','t','k','b','d','g',
-                'f','th','sh','s','v','dh','zh','z',
-                'm','l','n','ng','r','w','y']
-        self.tex = ['a','\\"{a}',"\\'{a}",'e','\\"{e}',"\\'{e}",'o','\\"{o}',"\\'{o}",'u','\\"{u}',"\\'{u}",
-                'p','t','k','b','d','g',
-                'f','th','sh','s','v','dh','zh','z',
-                'm','l','n','ng','r','w','y']
-        self.TEX = ['A','\\"{A}',"\\'{A}",'E','\\"{E}',"\\'{E}",'O','\\"{O}',"\\'{O}",'U','\\"{U}',"\\'{U}",
-                'P','T','K','B','D','G',
-                'F','Th','Sh','S','V','Dh','Zh','Z',
-                'M','L','N','Ng','R','W','Y']
+        self.name = 'Default'
+        self.num = 0
+        self.asc = []
+        self.uni = []
+        self.tex = []
+        self.TEX = []
+        self.imp("representation_.dat")
     def imp(self, filename):
         with open(filename, "r") as fp:
             self.num = 0
             for line in fp.readlines():
-                self.tex[i] = line.split()[0]
-                self.TEX[i] = line.split()[1]
+                tokes = line.split()
+                self.asc.append(tokes[0])
+                self.uni.append(tokes[1])
+                self.tex.append(tokes[2])
+                self.TEX.append(tokes[3])
                 self.num += 1
     def exp(self, filename):
         with open(filename, "w") as fp:
             for i in range(self.num):
-                fp.write(self.tex[i]+" "+self.TEX[i]+"\n")
+                fp.write(self.asc[i]+" "+self.uni[i]+" "+self.tex[i]+" "+self.TEX[i]+"\n")
+
+
+
+'''
+    self.fa: allowed transitions on the rising part of a syllable
+                (here rising also includes the vowel sounds)
     
+            - self.fa[c][v] = 1
+            - self.fa[v][v] = 0, unless specified as allowed in transitions_.dat
+            - self.fa[v][c] = 1
+            - self.fa[c][c] = as specified in transitions_.dat
+    
+    self.fb: allowed transitions on the falling part of a syllable
+    
+            - self.fb[v][v] = 0
+            - self.fb[v][c] = 1
+            - self.fb[c][v] = 0
+            - self.fb[c][c] = as specified in transitions_.dat
+'''                
+             
 class SoundSpace:
     def __init__(self):
-        x = [5, 0, 0] * 4
-        x.extend([1] * 21)
-        nx = numpy.array(x, dtype=int)
-        ny = numpy.zeros((33,33), dtype=int)
-        for i in range(33):
-            for j in range(33):
-                if i == j:
-                    ny[i][j] = 0
-                else:
-                    ny[i][j] = nx[i] * nx[j]
-        self.numv = 12
-        self.numn = 33
-        self.voca = [1, 1]
-        self.vocb = [[1, 1], [1,1]]
-        self.vocc = [[1, 1], [1,1]]
-        self.a    = nx
-        self.b    = ny
-        self.c    = ny
+        self.name = 'Default'
+        self.numv = 11
+        self.numc = 22
+        self.numn = self.numv + self.numc
+        self.voca = [1,1]
+        self.vocb = [1,1]
+        self.x = [3] * self.numv
+        self.x.extend([1] * self.numc)
+        self.fa = numpy.zeros((self.numn,self.numn), dtype=int)
+        self.fb = numpy.zeros((self.numn,self.numn), dtype=int)
+        for c in range(self.numv,self.numn):
+            for v in range(self.numv):
+                self.fa[c][v] = 1
+                self.fa[v][c] = 1
+                self.fb[c][v] = 1
+        with open("transitions_.dat","r") as fp:
+            numd = 0
+            read = 0
+            for line in fp:
+                line = line.strip().split()
+                if line and '#' not in line[0]:
+                    if read == 0:
+                        numd = int(line[0])
+                        read += 1
+                    elif read <= numd:
+                        self.fa[int(line[1])][int(line[2])] = int(line[3])
+                        self.fb[int(line[1])][int(line[2])] = int(line[4])
+                        read += 1
+                    else:
+                        self.fa[self.numv+int(line[1])][self.numv+int(line[2])] = int(line[3])
+                        self.fb[self.numv+int(line[1])][self.numv+int(line[2])] = int(line[4])
+                        read += 1
     def imp(self, filename):
         with open(filename, "r") as fp:
             line = fp.readline().split()
             self.numv = int(line[0])
-            self.numn = int(line[1])
-            line = fp.readline().split()
-            self.voca = [int(i) for i in line]
-            line = fp.readline.split()
-            self.vocb[0] = [int(i) for i in line[:2]]
-            self.vocb[1] = [int(i) for i in line[2:]]
-            line = fp.readline().split()
-            self.vocc[0] = [int(i) for i in line[:2]]
-            self.vocc[1] = [int(i) for i in line[2:]]
-            line = fp.readline().split()
-            self.a = [int(i) for i in line]
+            self.numc = int(line[1])
+            self.numn = int(line[2])
             for i in range(self.numn):
                 line = fp.readline().split()
-                self.b[i] = [int(i) for i in line]
-            for i in range(self.numn):
-                line = fp.readline().split()
-                self.c[i] = [int(i) for i in line]
+                self.x[i] = int(i)
     def exp(self, filename):
         with open(filename, "w") as fp:
-            csv.writer(fp).writerow([self.numv, self.numn])
-            csv.writer(fp).writerow(self.voca)
-            csv.writer(fp).writerow(self.voca)
-            csv.writer(fp).writerow(self.voca)
-            csv.writer(fp).writerows(self.a)
+            csv.writer(fp).writerow([self.numv, self.numc, self.numn])
             for i in range(self.numn):
-                csv.writer(fp).writerow(self.vocb[i])
-            for i in range(self.numn):
-                csv.writer(fp).writerow(self.vocc[i])
+                csv.writer(fp).writerow(self.x[i])
     def scan(self, filename):
         with open(filename) as fp:
             for line in fp.readlines():
-                chars = list(line)
-                sndspc.a[chars[0]] += 1
-                for i in range(1,len(chars)-1):
-                    sndspc.b[chars[i-1]][chars[i]] += 1
-                sndspc.c[chars[len(chars)-2]][chars[len(chars)-1]] += 1
+                pass
 
 class Lexicon:
-    types = ['sbj','obj']
+    types = []
     def gen_word(self, soundspace, length):
-        vvv = soundspace.numv
-        # step 1: generate pattern in v=0, c=1
-        pattern = [pick_from_weights(soundspace.voca)]
-        pattern.extend([pick_from_weights(soundspace.vocb[pattern[0]])])
-        for i in range(2,length-1):
-            if pattern[i-1]==pattern[i-2]:
-                if pattern[i-1]==0:
-                    pattern.extend([1])
-                else:
-                    pattern.extend([0])
-            else:
-                pattern.extend([pick_from_weights(soundspace.vocb[pattern[i-1]])])
-        if pattern[length-2]==pattern[length-3]:
-            if pattern[length-2]==0:
-                pattern.extend([1])
-            else:
-                pattern.extend([0])
+        ### constants
+        numv = soundspace.numv
+        numc = soundspace.numc
+        numn = soundspace.numn
+        ### variables
+        syl_num = 0
+        syl_rising = True
+        ### get started
+        word = []
+        if pick_from_weights(soundspace.voca):
+            sound = pick_from_weights(soundspace.x[:numv])
         else:
-            pattern.extend([pick_from_weights(soundspace.vocc[pattern[length-2]])])    
-        # step 2: fill in first sound
-        if not pattern[0]:
-            word = [pick_from_weights(soundspace.a[:vvv])]
-        else:
-            word = [vvv + pick_from_weights(soundspace.a[vvv:])]
-        # step 3: fill in middle sounds
-        for i in range(1,length-1):
-            if not pattern[i]:
-                word.extend([pick_from_weights(soundspace.b[word[i-1]][:vvv])])
+            sound = numv + pick_from_weights(soundspace.x[numv:])
+        word.append(sound)
+        ### loop
+        while syl_num < length:
+            # rising
+            if syl_rising:
+                filter = soundspace.fa[word[-1]]
+                flist = [filter[i]*soundspace.x[i] for i in range(numn)]
+                sound = pick_from_weights(flist)
+                if sound < numv:
+                    syl_rising = False
+            # falling
             else:
-                word.extend([vvv + pick_from_weights(soundspace.b[word[i-1]][vvv:])])
-        # step 4: fill in final sound
-        if not pattern[length-1]:
-            word.extend([pick_from_weights(soundspace.c[word[length-2]][:vvv])])
-        else:
-            word.extend([vvv + pick_from_weights(soundspace.c[word[length-2]][vvv:])])
-        #step 5: return
-        return word    
+                filter = [0]*numv
+                filter.extend([1]*numc)
+                flist = [filter[i]*soundspace.x[i] for i in range(numn)]
+                sound = pick_from_weights(flist)
+                check = soundspace.fb[word[-1]]
+                if check[sound] == 0:                    
+                        syl_num += 1
+                        syl_rising = True
+            word.append(sound)
+        ### possible trim
+        if(pick_from_weights(soundspace.vocb)):
+            while word[-1] > numv:
+                del word[-1]
+        ### return 
+        print syl_num
+        return word
     def gen_words(self, len_min, len_med, len_std, soundspace, number):
         words = []
         for w in range(number):
             length = int(max(len_min,numpy.random.normal(len_med,len_std)))
-            words.extend([self.gen_word(soundspace,length)])
-        return words
+            words.append(self.gen_word(soundspace,length))
+        return words    
     def __init__(self, soundspace):
-        self.sbj = self.gen_words(1, 2, 1, soundspace, 6)
-        self.obj = self.gen_words(2, 3, 1, soundspace, 6)
-        self.log = self.gen_words(1, 2, 1, soundspace, 4)
+        self.name = 'Default'
+        # word types
+        self.sbj = self.gen_words(1, 1.5, 1, soundspace, 6)
+        self.obj = self.gen_words(2, 2.5, 1, soundspace, 6)
+        self.log = self.gen_words(1, 1.5, 1, soundspace, 4)
         self.rel = self.gen_words(2, 2, 1, soundspace, 6)
-        self.hyp = self.gen_words(2, 3, 2, soundspace, 6)
-        self.adj = self.gen_words(2, 3, 3, soundspace, 72)
-        self.adv = self.gen_words(2, 3, 2, soundspace, 36)
-        self.vrb = self.gen_words(2, 3, 2, soundspace, 18)
-        self.tns = self.gen_words(1, 2, 1, soundspace, 6)
+        self.hyp = self.gen_words(2, 2.5, 1.5, soundspace, 6)
+        self.adj = self.gen_words(2, 2.5, 2, soundspace, 72)
+        self.adv = self.gen_words(2, 2.5, 1.5, soundspace, 36)
+        self.vrb = self.gen_words(2, 2.5, 1, soundspace, 18)
+        self.tns = self.gen_words(1, 1.5, 1, soundspace, 6)
     def imp(self, fname):
         pass
     def exp(self, fname):
         pass
         
-### page creation
-###     (uses types: sbj, obj, vrb, tns, hyp)
-###     (fix to also use: log, etc.)
+### page creation #########################################################################################################################
+### uses types: sbj, obj, vrb, tns, hyp --- fix to also use: log, etc.
 
 def generate_sentence(lex):
     s = []
@@ -223,22 +236,19 @@ def conjure_page(lex, rep):
     # print tail
     infile.write("\\end{document}\n")
     infile.close()
-    return None
 
 def create_story(lex, rep):
     conjure_page(lex, rep)
     fnull = open(os.devnull,'w')
     call(["pdflatex","story_.tex"], stdout=fnull)
     call(["pdflatex","story_.tex"], stdout=fnull)
-    return None
 
+###########################################################################################################################################
     
     
     
     
     
-    
-        
         
         
         
