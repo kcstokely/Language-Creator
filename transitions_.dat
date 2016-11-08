@@ -1,0 +1,700 @@
+### vowel sounds:
+
+###  fee    0        
+###  fin    1
+###  fet	2
+###  fat	3
+###  ahh	4
+###  aww	5
+###  uhh	6
+###  fur	7
+###  fuu	8
+###  foot	9	
+###  fool   10 
+
+### allowed diphtongs
+
+9
+
+leer        0  1        1  0
+lay         3  0        1  0
+lair        3  1        1  0
+lied        4  0        1  0
+loud        4  10       1  0
+loin        5  0        1  0
+light       6  0        1  0
+low         6  10       1  0
+lure        10 6        1  0   
+
+### consonant sounds:
+
+###  p   0
+###  t   1
+###  k   2
+###  b   3
+###  d   4
+###  g   5
+    
+###  f   6
+###  th  7
+###  sh  8
+###  s   9
+###  v   10
+###  dh  11
+###  zh  12
+###  z   13
+    
+###  m   14
+###  l   15
+###  n   16
+###  ng  17
+###  r   18
+
+###  w   19
+###  y   20
+###  h   21
+
+### allowed transitions
+
+### plosive - plosive
+
+pp   0  0   0  0
+pt   0  1   0  1
+pk   0  2   0  1
+pb   0  3   0  0
+pd   0  4   0  0
+pg   0  5   0  0
+
+bp   3  0   0  0
+bt   3  1   0  1
+bk   3  2   0  0
+bb   3  3   0  0
+bd   3  4   0  1
+bg   3  5   1  0
+
+tp   1 0    0  0
+tt   1 1    0  0
+tk   1 2    0  1
+tb   1 3    0  0
+td   1 4    0  0
+tg   1 5    0  0
+
+dp   4 0    0  1   
+dt   4 1    0  0
+dk   4 2    0  1
+db   4 3    0  0
+dd   4 4    0  0
+dg   4 5    0  1
+
+kp   2 0    0  0
+kt   2 1    0  1
+kk   2 2    0  0
+kb   2 3    0  0
+kd   2 4    0  0
+kg   2 5    0  0
+
+gp   5 0    0  1
+gt   5 1    0  1
+gk   5 2    0  0
+gb   5 3    0  0
+gd   5 4    0  1
+gg   5 5    0  0
+
+### plosive - fricative
+
+pf   0 6    1  1
+pth  0 7    0  1
+psh  0 8    1  1
+ps   0 9    1  1
+
+pv   0 10   0  0
+pdh  0 11   0  0
+pzh  0 12   0  0
+pz   0 13   0  0
+
+bf   3 6    0  1
+bth  3 7    0  1
+bsh  3 8    0  1
+bs   3 9    0  2
+
+bv   3 10   0  2
+bdh  3 11   0  1
+bzh  3 12   0  1
+bz   3 13   0  1
+
+tf   1 6    0  2
+tth  1 7    0  1
+tsh  1 8    1  1
+ts   1 9    1  1
+
+tv   1 10   0  0
+tdh  1 11   0  0
+tzh  1 12   0  0
+tz   1 13   0  0
+
+df   4 6    0  0
+dth  4 7    0  1
+dsh  4 8    0  0
+ds   4 9    0  1
+
+dv   4 10   0  2
+ddh  4 11   0  0
+dzh  4 12   1  1
+dz   4 13   0  1
+
+kf   2 6    0  1
+kth  2 7    0  1
+ksh  2 8    1  1
+ks   2 9    1  1
+
+kv   2 10   1  0
+kdh  2 11   0  0
+kzh  2 12   0  0
+kz   2 13   0  0
+
+gf   5 6    0  1
+gth  5 7    0  2
+gsh  5 8    0  1
+gs   5 9    0  1
+
+gv   5 10   0  2
+gdh  5 11   0  2
+gzh  5 12   1  1
+gz   5 13   0  1
+
+### fricative - plosive
+
+fp   6 0    1  1
+ft   6 1    1  1
+fk   6 2    1  1
+fb   6 3    1  0
+fd   6 4    1  0
+fg   6 5    0  0
+
+thp  7 0    1  1
+tht  7 1    1  1
+thk  7 2    1  1
+thb  7 3    1  0
+thd  7 4    0  0
+thg  7 5    0  0
+
+shp  8 0    1  1
+sht  8 1    1  1
+shk  8 2    1  1
+shb  8 3    0  0
+shd  8 4    0  0
+shg  8 5    0  0
+
+sp   9 0    1  1
+st   9 1    1  1
+sk   9 2    1  1
+sb   9 3    1  0
+sd   9 4    0  0
+sg   9 5    1  0
+
+vp   10 0   0  1
+vt   10 1   0  1
+vk   10 2   0  1
+vb   10 3   1  1
+vd   10 4   1  1
+vg   10 5   0  1
+
+dhp  11 0   0  1
+dht  11 1   0  1
+dhk  11 2   0  1
+dhb  11 3   0  1
+dhd  11 4   0  1
+dhg  11 5   0  1
+
+zhp  12 0   0  1
+zht  12 1   0  1
+zhk  12 2   0  1
+zhb  12 3   0  1
+zhd  12 4   1  1
+zhg  12 5   0  1
+
+zp   13 0   0  1
+zt   13 1   0  1
+zk   13 2   0  1
+zb   13 3   1  1
+zd   13 4   1  1
+zg   13 5   1  1
+
+### plosive - approx
+
+pm   0 14   0  1
+pl   0 15   1  1
+pn   0 16   0  1
+png  0 17   0  1
+pr   0 18   1  1 
+
+bm   3 14   0  1
+bl   3 15   1  1
+bn   3 16   0  1
+bng  3 17   0  1
+br   3 18   1  1
+
+tm   1 14   0  1
+tl   1 15   1  1
+tn   1 16   0  1
+tng  1 17   0  1
+tr   1 18   1  1
+
+dm   4 14   0  1
+dl   4 15   1  1
+dn   4 16   0  1
+dng  4 17   0  1
+dr   4 18   0  1
+
+km   3 14   0  1
+kl   3 15   1  1
+kn   3 16   0  1
+kng  3 17   0  1
+kr   3 18   1  1
+
+gm   5 14   0  1
+gl   5 15   1  1
+gn   5 16   0  1
+gng  5 17   0  1
+gr   5 18   1  1
+
+### approx - plosive
+
+mp   14 0   0  1
+mt   14 1   0  1
+mk   14 2   0  1
+mb   14 3   1  1
+md   14 4   0  1
+mg   14 5   0  1
+
+lp   15 0   0  1
+lt   15 1   0  1
+lk   15 2   0  1
+lb   15 3   0  1
+ld   15 4   0  1
+lg   15 5   0  1
+
+np   16 0   0  1
+nt   16 1   0  1
+nk   16 2   0  1
+nb   16 3   0  2
+nd   16 4   1  1
+ng   16 5   0  2
+
+ngp  17 0   0  2
+ngt  17 1   0  2
+ngk  17 2   0  1
+ngb  17 3   0  2
+ngd  17 4   0  2
+ngg  17 5   1  1
+
+rp   18 0   0  1
+rt   18 1   0  1
+rk   18 2   0  1
+rb   18 3   0  1
+rd   18 4   0  1
+rg   18 5   0  1
+
+### plosive - etc
+
+pw   0 19   1  0
+py   0 20   1  0
+ph   0 21   0  0
+
+bw   3 19   1  0
+by   3 20   1  0
+bh   3 21   0  0
+
+tw   1 19   1  0
+ty   1 20   1  0
+th   1 21   0  0
+
+dw   4 19   1  0
+dy   4 20   1  0
+dh   4 21   0  0
+
+kw   2 19   1  0
+ky   2 20   1  0
+kh   2 21   0  0
+
+gw   5 19   1  0
+gy   5 20   1  0
+gh   5 21   0  0
+
+### etc - plosive
+
+wp   19 0   0  0
+wt   19 1   0  0
+wk   19 2   0  0
+wb   19 3   0  0
+wd   19 4   0  0
+wg   19 5   0  0
+
+yp   20 0   0  0
+yt   20 1   0  0
+yk   20 2   0  0
+yb   20 3   0  0
+yd   20 4   0  0
+yg   20 5   0  0
+
+hp   21 0   0  0
+ht   21 1   0  0
+hk   21 2   0  0
+hb   21 3   0  0
+hd   21 4   0  0
+hg   21 5   0  0
+
+### fricative - fricative
+
+ff   6  6     0  0
+fth  6  7     0  1
+fsh  6  8     0  1
+fs   6  9     0  1
+fv   6  10    0  0
+fdh  6  11    0  1
+fzh  6  12    0  1
+fz   6  13    0  1
+
+vf   10 6     0  0
+vth  10 7     0  1
+vsh  10 8     0  1
+vs   10 9     0  1
+vv   10 10    0  0
+vdh  10 11    0  1
+vzh  10 12    0  1
+vz   10 13    0  1
+
+thf  7  6     0  1
+thth 7  7     0  0
+thsh 7  8     0  1
+ths  7  9     0  1
+thv  7  10    0  2
+thdh 7  11    0  0
+thzh 7  12    0  1
+thz  7  13    0  1
+
+dhf  11 6     0  2
+dhth 11 7     0  0
+dhsh 11 8     0  1
+dhs  11 9     0  1
+dhv  11 10    0  1
+dhdh 11 11    0  0
+dhzh 11 12    0  1
+dhz  11 13    0  1
+
+shf  8  6     1  1
+shth 8  7     1  1
+shsh 8  8     0  0
+shs  8  9     1  1
+shv  8  10    1  0
+shdh 8  11    1  0
+shzh 8  12    0  0
+shz  8  13    1  0
+
+zhf  12 6     0  1
+zhth 12 7     0  1
+zhsh 12 8     0  0
+zhs  12 9     0  1
+zhv  12 10    0  2
+zhdh 12 11    0  2
+zhzh 12 12    0  0
+zhz  12 13    0  2
+
+sf   9  6     1  1
+sth  9  7     1  1
+ssh  9  8     0  0
+ss   9  9     0  0
+sv   9  10    1  2
+sdh  9  11    0  2
+szh  9  12    0  0
+sz   9  13    0  0
+
+zf   13 6     0  2
+zth  13 7     0  2
+zsh  13 8     0  0
+zs   13 9     0  0
+zv   13 10    1  2
+zdh  13 11    0  2
+zzh  13 12    0  0
+zz   13 13    0  0
+
+### fricative - approx
+
+fm   6  14    0  1
+fl   6  15    1  2
+fn   6  16    0  2
+fng  6  17    0  2
+fr   6  18    1  2
+
+vm   10 14    0  1
+vl   10 15    1  2
+vn   10 16    0  2
+vng  10 17    0  2
+vr   10 18    1  2
+
+thm  7  14    0  1
+thl  7  15    1  1
+thn  7  16    0  2
+thng 7  17    0  2
+thr  7  18    1  2
+
+dhm  11 14    0  1
+dhl  11 15    1  1
+dhn  11 16    0  2
+dhng 11 17    0  2
+dhr  11 18    1  2
+
+shm  8  14    1  1
+shl  8  15    1  0
+shn  8  16    1  0
+shng 8  17    1  0
+shr  8  18    1  0
+
+zhm  12 14    1  1
+zhl  12 15    1  0
+zhn  12 16    0  0
+zhng 12 17    0  0
+zhr  12 18    0  0
+
+sm   9  14    1  1
+sl   9  15    1  0
+sn   9  16    1  0
+sng  9  17    0  0
+sr   9  18    1  0
+
+zm   13 14    1  1
+zl   13 15    1  0
+zn   13 16    0  0
+zng  13 17    0  0
+zr   13 18    1  0
+
+### approx - fricative
+
+mf   14 6     0  1
+mth  14 7     0  1
+msh  14 8     0  1
+ms   14 9     0  1
+mv   14 10    0  1
+mdh  14 11    0  1
+mzh  14 12    0  1
+mz   14 13    0  1
+
+lf   15 6     0  1
+lth  15 7     0  1
+lsh  15 8     0  1
+ls   15 9     0  1
+lv   15 10    0  1
+ldh  15 11    0  1
+lzh  15 12    0  1
+lz   15 13    0  1
+
+nf   16 6     0  1
+nth  16 7     0  1
+nsh  16 8     0  1
+ns   16 9     0  1
+nv   16 10    0  1
+ndh  16 11    0  1
+nzh  16 12    0  1
+nz   16 13    0  1
+
+ngf  17  6    0  1
+ngth 17  7    0  1
+ngsh 17  8    0  1
+ngs  17  9    0  1
+ngv  17  10   0  1
+ngdh 17  11   0  1
+ngzh 17  12   0  1
+ngz  17  13   0  1
+
+rf   18 6     0  1
+rth  18 7     0  1
+rsh  18 8     0  1
+rs   18 9     0  1
+rv   18 10    0  1
+rdh  18 11    0  1
+rzh  18 12    0  1
+rz   18 13    0  1
+
+### fricative - etc
+
+fw   6  19    1  0
+fy   6  20    1  0
+fh   6  21    0  0
+vw   10 19    1  0
+vy   10 20    1  0
+vh   10 21    0  0
+
+thw  7  19    1  0
+thy  7  20    1  0
+thh  7  21    0  0
+dhw  11 19    1  0
+dhy  11 20    1  0
+dhh  11 21    0  0
+
+shw  8  19    1  0
+shy  8  20    1  0
+shh  8  21    0  0
+zhw  12 19    1  0
+zhy  12 20    1  0
+zhh  12 21    0  0
+
+sw   9  19    1  0
+sy   9  20    1  0
+sh   9  21    0  0
+zw   13 19    1  0
+zy   13 20    1  0
+zh   13 21    0  0
+
+### etc - fricative
+
+wf   19 6     0  0
+wth  19 7     0  0
+wsh  19 8     0  0
+ws   19 9     0  0
+wv   19 10    0  0
+wdh  19 11    0  0
+wzh  19 12    0  0
+wz   19 13    0  0
+
+yf   20 6     0  0
+yth  20 7     0  0
+ysh  20 8     0  0
+ys   20 9     0  0
+yv   20 10    0  0
+ydh  20 11    0  0
+yzh  20 12    0  0
+yz   20 13    0  0
+
+hf   21 6     0  0
+hth  21 7     0  0
+hsh  21 8     0  0
+hs   21 9     0  0
+hv   21 10    0  0
+hdh  21 11    0  0
+hzh  21 12    0  0
+hz   21 13    0  0
+
+### approx - approx
+
+mm   14 14    0  0
+ml   14 15    1  2
+mn   14 16    0  2
+mng  14 17    0  2
+mr   14 18    1  2
+
+lm   15 14    0  1
+ll   15 15    0  0
+ln   15 16    0  1
+lng  15 17    0  1
+lr   15 18    0  2
+
+nm   16 14    0  1
+nl   16 15    0  2
+nn   16 16    0  0
+nng  16 17    0  0
+nr   16 18    1  2
+
+ngm  17 14    0  0
+ngl  17 15    0  2
+ngn  17 16    0  2
+ngng 17 17    0  0
+ngr  17 18    1  2
+
+rm   18 14    0  1
+rl   18 15    0  1
+rn   18 16    0  1
+rng  18 17    0  1
+rr   18 18    0  0 
+
+### approx - etc
+
+mw   14 19    1  0
+lw   15 19    0  0
+nw   16 19    0  0
+ngw  17 19    0  0
+rw   18 19    0  0
+
+my   14 20    1  0
+ly   15 20    0  0
+ny   16 20    1  0
+ngy  17 20    1  0
+ry   18 20    0  0
+
+mh   14 21    0  0
+lh   15 21    0  0
+nh   16 21    0  0
+ngh  17 21    0  0
+rh   18 21    0  0
+
+### etc - approx
+
+wm   19 14    0  0
+wl   19 15    0  0
+wn   19 16    0  0
+wng  19 17    0  0
+wr   19 18    0  0
+
+ym   20 14    0  0
+yl   20 15    0  0
+yn   20 16    0  0
+yng  20 17    0  0
+yr   20 18    0  0
+
+hm   21 14    0  0
+hl   21 15    0  0
+hn   21 16    0  0
+hng  21 17    0  0
+hr   21 18    0  0
+
+### etc - etc
+
+ww   19 19    0  0
+wy   19 20    0  0
+wh   19 21    0  0
+
+yw   20 19    0  0
+yy   20 20    0  0
+yh   20 21    0  0
+
+hw   21 19    1  0
+hy   21 20    1  0
+hh   21 21    0  0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
